@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>chatroom</title>
+  <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+  <div class="container">
+    <h3>chatroom</h3>
+    <div class="messages"></div>
+
+    <div class="input-container">
+      <form class="new-message">
+        Name: <br><input type="text" name="sender" class="sender-input"> <br>
+        Content: <br><textarea name="content" class="content-input" onkeydown="if(event.keyCode==13){return false;}"></textarea>
+        <br>
+        <button class="send-btn" type="submit" name="send">Send</button>
+      </form>
+    </div>
+  </div>
+<!-- <span class="content">{{content}}</span> -->
+  <div class="template" style="display: none">
+    <div class="message-another">
+      <span class="sender">{{sender}}</span>
+      
+      <p class="content">{{content}}</p>
+
+    </div>
+    <div class="message-self">
+      <span class="sender">{{sender}}</span>
+
+      <p class="content">{{content}}</p>
+
+    </div>
+  </div>
+
+  <script src="client.js"></script>
+</body>
+</html>
