@@ -4,12 +4,14 @@ var http = require('http'),
 
 var fileServer = ecstatic({root: './public'});
 var router = new Router;
-
+const port = 8080
 http.createServer((request, response) => {
   if (!router.resolve(request, response)) {
     fileServer(request, response);
   }
-}).listen(8080);
+}).listen(port, () => {
+  console.log(`Server listening on port ${port}`)
+});
 
 var messages = []
 
@@ -62,7 +64,7 @@ router.add('PUT', /^\/chat$/, (request, response) => {
   readStreamAsJSON(request, (error, message) => {
     if (error) {
       console.error(error)
-      respond(response, 400, error.toString()) 
+      respond(response, 400, error.toString())
     } else {
       messages.push(message)
       sendMessageForWaiters(message)
@@ -79,8 +81,8 @@ function sendMessageForWaiters(message) {
 }
 
 var waiting = []
-function waitForNewMessage(since, response) {
-  var waiter = {since: since, response: response}
+function waitForNewMessage(messageIndex, response) {
+  var waiter = {messageIndex: messageIndex, response: response}
   waiting.push(waiter)
   setTimeout(() => {
     var found = waiting.indexOf(waiter)
@@ -89,5 +91,5 @@ function waitForNewMessage(since, response) {
       waiting.splice(found, 1)
       respond(response, 204, null)
     }
-  }, 120 * 1000)
+  }, 60 * 1000)
 }
