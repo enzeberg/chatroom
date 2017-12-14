@@ -1,6 +1,6 @@
 # chatroom
 
-## Use
+## Usage
 
     git clone https://github.com/enzeberg/chatroom.git
     cd chatroom
